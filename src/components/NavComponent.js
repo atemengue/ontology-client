@@ -17,6 +17,10 @@ export default function NavComponent() {
 
   const activeStyle = { color: '#F15B2A' };
 
+  const sparlRequest = () => {
+    console.log('sparql Request');
+  };
+
   return (
     <Navbar color='light' light expand='md'>
       <NavbarBrand acti href='/'>
@@ -56,7 +60,7 @@ export default function NavComponent() {
             </NavLink>
           </NavItem>
         </Nav>
-        <NavbarText>Groupe 4</NavbarText>
+        <NavbarText onClick={() => sparlRequest()}>Groupe 4</NavbarText>
       </Collapse>
     </Navbar>
   );

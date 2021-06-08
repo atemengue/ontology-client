@@ -2,6 +2,7 @@
 
 import { FaSearch } from 'react-icons/fa';
 import { Col, Container, Row } from 'reactstrap';
+import aliment from '../data';
 import Result from './Result';
 
 export default function Home() {
@@ -16,18 +17,22 @@ export default function Home() {
               </span>
               <input className='SearchInput' type='text' />
             </div>
+            i`
           </div>
         </Col>
       </Row>
       <Row>
         <Container>
           <Col xs='12'>
-            <Result
-              title='Gombo'
-              classe='aliment'
-              description='Some quick example text to build on the card title and make up the bulk'
-            />
-            <Result title='Tomate' classe='aliment' />
+            {aliment.map((aliment, index) => {
+              return (
+                <Result
+                  title={aliment.food}
+                  classe={aliment.classe}
+                  description={aliment.description}
+                />
+              );
+            })}
           </Col>
         </Container>
       </Row>

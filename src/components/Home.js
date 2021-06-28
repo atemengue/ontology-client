@@ -1,7 +1,7 @@
 /** @format */
 
 import { FaSearch } from 'react-icons/fa';
-import { Col, Container, Row } from 'reactstrap';
+import { Col, Container, FormGroup, Input, Row } from 'reactstrap';
 import aliment from '../data';
 import Result from './Result';
 
@@ -11,13 +11,31 @@ export default function Home() {
       <Row>
         <Col>
           <div className='Search'>
-            <div className='SearchSecond'>
-              <span className='SearchSpan'>
-                <FaSearch />
-              </span>
-              <input className='SearchInput' type='text' />
+            <div>
+              <div className='SearchSecond'>
+                <span className='SearchSpan'>
+                  <FaSearch />
+                </span>
+                <input
+                  placeholder='Ontology Search'
+                  className='SearchInput'
+                  type='text'
+                />
+              </div>
+              <div className='selectClass'>
+                <FormGroup>
+                  <Input
+                    type='select'
+                    name='selectMulti'
+                    id='exampleSelectMulti'
+                  >
+                    <option>Aliment</option>
+                    <option>Repas</option>
+                    <option>Substance Organique</option>
+                  </Input>
+                </FormGroup>
+              </div>
             </div>
-            i`
           </div>
         </Col>
       </Row>

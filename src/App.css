@@ -14,6 +14,11 @@
   display: flex;
 }
 
+.selectClass {
+  width: 400px;
+  margin-top: 10px;
+}
+
 .SearchSpan {
   width: 15%;
   border: 1px solid #1c76d2;
@@ -32,4 +37,17 @@
   padding: 5px;
   border-radius: 0 5px 5px 0;
   outline: none;
+}
+
+.jumbotron {
+  margin-top: 50px;
+  background-color: snow;
+}
+.card {
+  margin-left: 25px;
+  margin-right: 25px;
+}
+
+hr {
+  width: 70%;
 }

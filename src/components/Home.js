@@ -1,11 +1,18 @@
 /** @format */
 
+import { useState } from 'react';
 import { FaSearch } from 'react-icons/fa';
+import { useQuery } from 'react-query';
 import { Col, Container, FormGroup, Input, Row } from 'reactstrap';
 import aliment from '../data';
+import { getClasses } from '../helpers/classeHelper';
 import Result from './Result';
 
 export default function Home() {
+  const [classes, setClasses] = useState([]);
+
+  const { isLoading, data } = useQuery('classes', () => getClasses());
+
   return (
     <>
       <Row>
@@ -29,9 +36,14 @@ export default function Home() {
                     name='selectMulti'
                     id='exampleSelectMulti'
                   >
+                    {data?.data?.records.map((classe, index) => {
+                      return (
+                        <option key={index} value={classe.label}>
+                          {classe.label}
+                        </option>
+                      );
+                    })}
                     <option>Aliment</option>
-                    <option>Repas</option>
-                    <option>Substance Organique</option>
                   </Input>
                 </FormGroup>
               </div>

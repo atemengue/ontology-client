@@ -1,5 +1,6 @@
 /** @format */
 
+import { QueryClient, QueryClientProvider } from 'react-query';
 import { Route, Switch } from 'react-router-dom';
 import './App.css';
 import Collecte from './components/Collecte';
@@ -10,8 +11,10 @@ import NavComponent from './components/NavComponent';
 import Validation from './components/Validation';
 
 const App = (props) => {
+  const queryClient = new QueryClient(); // react query client
+
   return (
-    <div>
+    <QueryClientProvider client={queryClient}>
       <NavComponent />
       <Switch>
         <Route path='/connexion' component={Connexion} />
@@ -20,7 +23,7 @@ const App = (props) => {
         <Route path='/validation' component={Validation} />
         <Route path='/' component={Home} />
       </Switch>
-    </div>
+    </QueryClientProvider>
   );
 };
 

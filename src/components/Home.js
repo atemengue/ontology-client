@@ -16,6 +16,8 @@ export default function Home() {
   return (
     <>
       <Row>
+        {/* <Spinner size='md' color='primary' /> */}
+
         <Col>
           <div className='Search'>
             <div>

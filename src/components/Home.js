@@ -2,22 +2,52 @@
 
 import { useState } from 'react';
 import { FaSearch } from 'react-icons/fa';
-import { useQuery } from 'react-query';
-import { Col, Container, FormGroup, Input, Row } from 'reactstrap';
-import aliment from '../data';
-import { getClasses } from '../helpers/classeHelper';
+import { useMutation, useQuery } from 'react-query';
+import Select from 'react-select';
+import { Col, Container, FormGroup, Row, Spinner } from 'reactstrap';
+import { getClasse, getClasses } from '../helpers/classeHelper';
 import Result from './Result';
 
-export default function Home() {
+export default function Home(props) {
   const [classes, setClasses] = useState([]);
+  const [selectedOption, setSelectedOption] = useState(null);
 
-  const { isLoading, data } = useQuery('classes', () => getClasses());
+  const { isLoading, data } = useQuery('classeList', () => getClasses());
+  const [classeIndividuals, setClasseIndividuals] = useState({
+    total: null,
+    records: [],
+  });
+  const [className, setclassName] = useState(null);
+  const [isShowIntro, setIsShowIntro] = useState(true);
+
+  // const { isLoading: isLoadingIndividual, classeIndividuals } = useQuery(
+  //   ['classeIndividuals', 'Aliment'],
+  //   getClasse
+  // );
+
+  const mutation = useMutation((className) => getClasse(className), {
+    onSuccess: (response) => {
+      setClasseIndividuals({
+        ...classeIndividuals,
+        total: response?.data?.total,
+        records: response?.data?.records,
+      });
+    },
+  });
+
+  const OnchangeSelected = (data) => {
+    if (data) {
+      setIsShowIntro(false);
+      setclassName(data.label);
+      mutation.mutate(data.label);
+    } else {
+      setIsShowIntro(true);
+    }
+  };
 
   return (
     <>
       <Row>
-        {/* <Spinner size='md' color='primary' /> */}
-
         <Col>
           <div className='Search'>
             <div>
@@ -33,38 +63,87 @@ export default function Home() {
               </div>
               <div className='selectClass'>
                 <FormGroup>
-                  <Input
-                    type='select'
-                    name='selectMulti'
-                    id='exampleSelectMulti'
-                  >
-                    {data?.data?.records.map((classe, index) => {
-                      return (
-                        <option key={index} value={classe.label}>
-                          {classe.label}
-                        </option>
-                      );
-                    })}
-                    <option>Aliment</option>
-                  </Input>
+                  <Select
+                    isClearable
+                    isLoading={isLoading}
+                    placeholder='Selectionner une classe'
+                    defaultValue={selectedOption}
+                    onChange={OnchangeSelected}
+                    options={data?.data?.records}
+                  />
                 </FormGroup>
               </div>
             </div>
           </div>
         </Col>
       </Row>
-      <Row>
+      <Row className='mt-3'>
         <Container>
           <Col xs='12'>
-            {aliment.map((aliment, index) => {
-              return (
-                <Result
-                  title={aliment.food}
-                  classe={aliment.classe}
-                  description={aliment.description}
-                />
-              );
-            })}
+            {isShowIntro && (
+              <div className='width: 60%'>
+                <h2>
+                  Welcome to BioPortal, the world's most comprehensive
+                  repository
+                </h2>
+                <p>
+                  biomedical ontologies Doorzoek vergaderstukken van gemeenten
+                  en provincies Met deze app zoek je door de openbare
+                  vergaderingen, agendapunten, moties en documenten van meer dan
+                  140 deelnemende gemeenten en zes provincies.
+                </p>
+                <p>
+                  Door wie? OpenBesluitvorming.nl is een initiatief van Argu om
+                  data van gemeenten, provincies en andere overheden samen te
+                  brengen in één zoekomgeving. Zowel deze zoekmachine als de
+                  server zijn open source. Vanuit het actieplan open overheid
+                  werkt het Ministerie van Binnenlandse Zaken aan het
+                  transparanter maken van overheden. Actiepunt 1 uit dit plan is
+                  het openen van besluitvormingsdata. De Open State Foundation
+                  is samen
+                </p>
+                <p>
+                  met VNG Realisatie het project Open Raadsinformatie gestart om
+                  data uit gemeenteraden te verzamelen. Voor de provincies is
+                  Open Stateninformatie gestart. Argu heeft als missie om
+                  besluitvorming zo open en toegankelijk mogelijk te maken. Als
+                  technisch ontwikkelaar en beheerder raakte Argu betrokken bij
+                  deze projecten.
+                </p>
+              </div>
+            )}
+
+            <div>
+              {mutation.isLoading ? (
+                <Spinner size='sm' color='secondary' />
+              ) : (
+                <div>
+                  {mutation.isError ? (
+                    <div>An error occurred: {mutation.error.message}</div>
+                  ) : null}
+
+                  {mutation.isSuccess ? (
+                    <div>
+                      {className && (
+                        <h2>
+                          {className}: {classeIndividuals.total}
+                        </h2>
+                      )}
+                      {classeIndividuals.records.map((classeItem, index) => {
+                        return (
+                          <Result
+                            key={index}
+                            title={classeItem.label}
+                            classe={className}
+                            description={classeItem.comment}
+                          />
+                        );
+                      })}
+                    </div>
+                  ) : null}
+                </div>
+              )}
+            </div>
           </Col>
         </Container>
       </Row>

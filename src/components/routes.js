@@ -6,6 +6,7 @@ import Collecte from './Collecte';
 import Connexion from './Connexion';
 import Enrichir from './Enrichir';
 import Home from './Home';
+import Search from './Search';
 import Validation from './Validation';
 
 const routes = () => {
@@ -15,7 +16,8 @@ const routes = () => {
       <Route path='/collecte' component={Collecte} />
       <Route path='/enrichir' component={Enrichir} />
       <Route path='/validation' component={Validation} />
-      <Route path='/' component={Home} />
+      <Route path='/recherche' component={Search} />
+      <Route exact path='/' component={Home} />
     </Switch>
   </Router>;
 };

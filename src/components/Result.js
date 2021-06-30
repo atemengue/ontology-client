@@ -5,7 +5,7 @@ import { Badge, Card, CardBody, CardText, CardTitle } from 'reactstrap';
 
 const Result = ({ title, classe, description }) => {
   return (
-    <div style={{ margin: 10 }}>
+    <div style={{ marginTop: 10 }}>
       <Card>
         <CardBody>
           <CardTitle tag='h5'>
@@ -14,12 +14,12 @@ const Result = ({ title, classe, description }) => {
           </CardTitle>
           <CardText>{description}</CardText>
 
-          <div>
+          {/* <div>
             <Badge className='ml-1 mr-1'>Glucose</Badge>
             <Badge className='ml-1 mr-1'>Phosphate</Badge>
             <Badge className='ml-1 mr-1'>Vitamine A</Badge>
             <Badge className='ml-1 mr-1'>Calcuim</Badge>
-          </div>
+          </div> */}
         </CardBody>
       </Card>
     </div>

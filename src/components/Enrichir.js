@@ -1,5 +1,6 @@
 /** @format */
 
+import { useParams } from 'react-router-dom';
 import {
   Button,
   Container,
@@ -9,8 +10,11 @@ import {
   Input,
   Label,
 } from 'reactstrap';
+export default function Enrichir(props) {
+  let { slug } = useParams();
 
-export default function Enrichir() {
+  console.log(slug);
+
   return (
     <>
       <Container className='mt-2'>

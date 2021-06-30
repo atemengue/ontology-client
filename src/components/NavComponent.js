@@ -77,7 +77,7 @@ query @single {
               exact
               activeStyle={activeStyle}
               className='nav-link'
-              to='enrichir'
+              to='recherche'
             >
               Recherche
             </NavLink>

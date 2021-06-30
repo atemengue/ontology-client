@@ -7,7 +7,7 @@ export function getClasses() {
   return response;
 }
 
-export function getClasse(idClasse) {
-  const response = axios.get(`http://localhost:9393/api/classes${idClasse}`);
+export function getClasse(className) {
+  const response = axios.get(`http://localhost:9393/api/classes/${className}`);
   return response;
 }

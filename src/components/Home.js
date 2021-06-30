@@ -22,7 +22,7 @@ export default function Home(props) {
   const [isShowIntro, setIsShowIntro] = useState(true);
 
   const [panState, setPanState] = useState({
-    isPaneOpen: true,
+    isPaneOpen: false,
     isPaneOpenLeft: false,
   });
 
@@ -126,7 +126,14 @@ export default function Home(props) {
                   {mutation.isSuccess ? (
                     <div>
                       {className && (
-                        <h2>
+                        <h2
+                          onClick={() =>
+                            setPanState({
+                              ...panState,
+                              isPaneOpenLeft: true,
+                            })
+                          }
+                        >
                           {className}: {classeIndividuals.total}
                         </h2>
                       )}
@@ -171,10 +178,10 @@ export default function Home(props) {
               isOpen={panState.isPaneOpenLeft}
               title='Hey, it is optional pane title.  I can be React component too.'
               from='left'
-              width='200px'
+              width='50%'
               onRequestClose={() => {
                 // triggered on "<" on left top click or on outside click
-                setPanState({ ...panState, isPaneOpen: false });
+                setPanState({ ...panState, isPaneOpenLeft: false });
               }}
             >
               <div>And I am pane content on left.</div>

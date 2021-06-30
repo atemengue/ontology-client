@@ -8,6 +8,7 @@ import Connexion from './components/Connexion';
 import Enrichir from './components/Enrichir';
 import Home from './components/Home';
 import NavComponent from './components/NavComponent';
+import Search from './components/Search';
 import Validation from './components/Validation';
 
 const App = (props) => {
@@ -21,6 +22,7 @@ const App = (props) => {
         <Route path='/collecte' component={Collecte} />
         <Route path='/enrichir' component={Enrichir} />
         <Route path='/validation' component={Validation} />
+        <Route path='/recherche' component={Search} />
         <Route path='/' component={Home} />
       </Switch>
     </QueryClientProvider>

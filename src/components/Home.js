@@ -4,12 +4,13 @@ import { useState } from 'react';
 import { FaSearch } from 'react-icons/fa';
 import { useMutation, useQuery } from 'react-query';
 import Select from 'react-select';
+import SlidingPane from 'react-sliding-pane';
 import { Col, Container, FormGroup, Row, Spinner } from 'reactstrap';
 import { getClasse, getClasses } from '../helpers/classeHelper';
+import '../sliding-pane.css';
 import Result from './Result';
 
 export default function Home(props) {
-  const [classes, setClasses] = useState([]);
   const [selectedOption, setSelectedOption] = useState(null);
 
   const { isLoading, data } = useQuery('classeList', () => getClasses());
@@ -20,10 +21,10 @@ export default function Home(props) {
   const [className, setclassName] = useState(null);
   const [isShowIntro, setIsShowIntro] = useState(true);
 
-  // const { isLoading: isLoadingIndividual, classeIndividuals } = useQuery(
-  //   ['classeIndividuals', 'Aliment'],
-  //   getClasse
-  // );
+  const [panState, setPanState] = useState({
+    isPaneOpen: true,
+    isPaneOpenLeft: false,
+  });
 
   const mutation = useMutation((className) => getClasse(className), {
     onSuccess: (response) => {
@@ -136,6 +137,12 @@ export default function Home(props) {
                             title={classeItem.label}
                             classe={className}
                             description={classeItem.comment}
+                            onClick={() =>
+                              setPanState({
+                                ...panState,
+                                isPaneOpen: true,
+                              })
+                            }
                           />
                         );
                       })}
@@ -144,6 +151,34 @@ export default function Home(props) {
                 </div>
               )}
             </div>
+            <SlidingPane
+              width='50%'
+              className='some-custom-class'
+              overlayClassName='some-custom-overlay-class'
+              isOpen={panState.isPaneOpen}
+              title='About: Aliment'
+              subtitle='Optional subtitle.'
+              onRequestClose={() => {
+                // triggered on "<" on left top click or on outside click
+                setPanState({ ...panState, isPaneOpen: false });
+              }}
+            >
+              <div>And I am pane content. BTW, what rocks?</div>
+              <br />
+            </SlidingPane>
+            <SlidingPane
+              closeIcon={<div>Some div containing custom close icon.</div>}
+              isOpen={panState.isPaneOpenLeft}
+              title='Hey, it is optional pane title.  I can be React component too.'
+              from='left'
+              width='200px'
+              onRequestClose={() => {
+                // triggered on "<" on left top click or on outside click
+                setPanState({ ...panState, isPaneOpen: false });
+              }}
+            >
+              <div>And I am pane content on left.</div>
+            </SlidingPane>
           </Col>
         </Container>
       </Row>

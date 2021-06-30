@@ -3,10 +3,10 @@
 import React from 'react';
 import { Badge, Card, CardBody, CardText, CardTitle } from 'reactstrap';
 
-const Result = ({ title, classe, description }) => {
+const Result = ({ title, classe, description, onClick }) => {
   return (
     <div style={{ marginTop: 10 }}>
-      <Card>
+      <Card onClick={onClick}>
         <CardBody>
           <CardTitle tag='h5'>
             {title}

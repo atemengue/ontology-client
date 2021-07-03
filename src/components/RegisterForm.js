@@ -5,13 +5,16 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from 'reactstrap';
 
-export default class LoginForm extends React.Component {
+export default class RegisterForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = { pseudo: false };
   }
 
   handleValidSubmit = (event, values) => {
+    this.setState({ pseudo: values.pseudo });
+    this.setState({ pseudo: values.pseudo });
+    this.setState({ pseudo: values.pseudo });
     this.setState({ pseudo: values.pseudo });
     console.log(`Login Successful`);
   };
@@ -30,6 +33,22 @@ export default class LoginForm extends React.Component {
         <AvField
           name='pseudo'
           label='pseudo'
+          type='text'
+          validate={{
+            required: true,
+          }}
+        />
+        <AvField
+          name='name'
+          label='name'
+          type='text'
+          validate={{
+            required: true,
+          }}
+        />
+        <AvField
+          name='surname'
+          label='surname'
           type='text'
           validate={{
             required: true,
@@ -59,11 +78,11 @@ export default class LoginForm extends React.Component {
             },
           }}
         />
-        <Button id='submit'>Connexion</Button>
+        <Button id='submit'>Creer un compte</Button>
         <div style={{ marginTop: '10px' }}>
-          Voulez-vous creer un compte ?
-          <Link to='/connexion/compte'>
-            <span> Cliquer ici pour creer un compte</span>
+          Avez vous un compte ?
+          <Link to='/connexion'>
+            <span> Cliquer ici pour se connecter</span>
           </Link>
         </div>
       </AvForm>

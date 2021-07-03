@@ -1,9 +1,9 @@
 /** @format */
 
 import { Card, CardBody, Col, Container, Jumbotron, Row } from 'reactstrap';
-import LoginForm from './Login';
+import RegisterForm from './RegisterForm';
 
-export default function Connexion() {
+export default function Register() {
   return (
     <>
       <Container>
@@ -11,11 +11,11 @@ export default function Connexion() {
           <Col />
           <Col lg='8'>
             <Jumbotron>
-              <h3 className='text-center'>CONNEXION</h3>
+              <h3 className='text-center'>CREER UN COMPTE</h3>
               <hr />
               <Card>
                 <CardBody>
-                  <LoginForm />
+                  <RegisterForm />
                 </CardBody>
               </Card>
             </Jumbotron>

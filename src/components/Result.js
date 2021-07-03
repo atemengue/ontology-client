@@ -1,27 +1,26 @@
 /** @format */
 
 import React from 'react';
-import { Badge, Card, CardBody, CardText, CardTitle } from 'reactstrap';
 
 const Result = ({ title, classe, description, onClick }) => {
   return (
-    <div style={{ marginTop: 10 }}>
-      <Card onClick={onClick}>
+    <div onClick={onClick} style={{ marginTop: 10, cursor: 'pointer' }}>
+      <div class='card1'>
+        <h3>{title}</h3>
+        <p class='small'>{description}</p>
+        <div class='go-corner' href='#'>
+          <div class='go-arrow'>→</div>
+        </div>
+      </div>
+      {/* <Card onClick={onClick}>
         <CardBody>
           <CardTitle tag='h5'>
             {title}
             <Badge className='ml-3'>{classe}</Badge>
           </CardTitle>
           <CardText>{description}</CardText>
-
-          {/* <div>
-            <Badge className='ml-1 mr-1'>Glucose</Badge>
-            <Badge className='ml-1 mr-1'>Phosphate</Badge>
-            <Badge className='ml-1 mr-1'>Vitamine A</Badge>
-            <Badge className='ml-1 mr-1'>Calcuim</Badge>
-          </div> */}
         </CardBody>
-      </Card>
+      </Card> */}
     </div>
   );
 };

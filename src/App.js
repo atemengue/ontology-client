@@ -23,6 +23,8 @@ const App = (props) => {
         <Route path='/enrichir' component={Enrichir} />
         <Route path='/validation' component={Validation} />
         <Route path='/recherche' component={Search} />
+        <Route path='/classes/:classNameParam' component={Home} />
+        <Route path='/classes/:classNameParam/:individual' component={Home} />
         <Route path='/' component={Home} />
       </Switch>
     </QueryClientProvider>

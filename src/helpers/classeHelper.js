@@ -7,6 +7,11 @@ export function getClasses() {
   return response;
 }
 
+export function getAliments() {
+  const response = axios.get('http://localhost:9393/api/aliments');
+  return response;
+}
+
 export function getClasse(className) {
   const response = axios.get(`http://localhost:9393/api/classes/${className}`);
   return response;
@@ -29,5 +34,25 @@ export function describeClasse(classe) {
 
 export function getStatistique() {
   const response = axios.get(`http://localhost:9393/api/stats`);
+  return response;
+}
+
+export function login(data) {
+  console.log(data);
+
+  const response = axios.post(`http://localhost:9393/api/login`, {
+    pseudo: data.pseudo,
+    password: data.password,
+  });
+  return response;
+}
+
+export function addAlimentToStore(data) {
+  const response = axios.post(`http://localhost:9393/api/aliments`, data);
+  return response;
+}
+
+export function addPlatToStore(data) {
+  const response = axios.post(`http://localhost:9393/api/plats`, data);
   return response;
 }

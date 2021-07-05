@@ -1,5 +1,6 @@
 /** @format */
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useState } from 'react';
 import { FaSearch } from 'react-icons/fa';
 import { useMutation, useQuery } from 'react-query';
@@ -61,6 +62,7 @@ export default function Home(props) {
   const [panState, setPanState] = useState({
     isPaneOpen: true,
     isPaneOpenLeft: false,
+    isPaneOpenButton: true,
   });
 
   const mutation = useMutation((className) => getClasse(className), {
@@ -97,7 +99,7 @@ export default function Home(props) {
   });
 
   const explore = (label) => {
-    history.push(`${location.pathname}/${label}`);
+    // history.push(`${location.pathname}/${label}`);
     setPanState({ ...panState, isPaneOpen: true });
     exploreMutation.mutate(label);
   };
@@ -171,7 +173,11 @@ export default function Home(props) {
           <div>
             {object?.labelObject && (
               <li>
-                <Badge href='#' color='primary'>
+                <Badge
+                  style={{ cursor: 'pointer', fontSize: '14px' }}
+                  onClick={() => explore(object.object.split('#')[1])}
+                  color='primary'
+                >
                   {object?.labelObject} (fr)
                 </Badge>
                 : {object?.commentObject}
@@ -184,14 +190,18 @@ export default function Home(props) {
                 </Badge>
               </li>
             )}
-            {object?.object && <li>{object?.object}</li>}
+            {object?.object && <li> {object?.object}</li>}
           </div>
           <hr />
           <div>
             <p1>
               {object?.labelSubject && (
                 <li>
-                  <Badge href='#' color='info'>
+                  <Badge
+                    style={{ cursor: 'pointer', fontSize: '14px' }}
+                    onClick={() => explore(object.subject.split('#')[1])}
+                    color='info'
+                  >
                     {object?.labelSubject}
                   </Badge>
                   : {object?.labelSubjectComment}
@@ -250,35 +260,21 @@ export default function Home(props) {
       <Row className='mt-3'>
         <Container>
           <Col xs='12'>
-            {(classNameParam === undefined || classNameParam === null) && (
+            {(classNameParam === undefined ||
+              classNameParam === null ||
+              !mutation.isSuccess) && (
               <div className='width: 60%'>
                 <h2>
-                  Welcome to BioPortal, the world's most comprehensive
-                  repository
+                  Bienvenue sur Food Ontology, la meileure ontology pour les
+                  aliments au Cameroun.
                 </h2>
                 <p>
-                  biomedical ontologies Doorzoek vergaderstukken van gemeenten
-                  en provincies Met deze app zoek je door de openbare
-                  vergaderingen, agendapunten, moties en documenten van meer dan
-                  140 deelnemende gemeenten en zes provincies.
-                </p>
-                <p>
-                  Door wie? OpenBesluitvorming.nl is een initiatief van Argu om
-                  data van gemeenten, provincies en andere overheden samen te
-                  brengen in één zoekomgeving. Zowel deze zoekmachine als de
-                  server zijn open source. Vanuit het actieplan open overheid
-                  werkt het Ministerie van Binnenlandse Zaken aan het
-                  transparanter maken van overheden. Actiepunt 1 uit dit plan is
-                  het openen van besluitvormingsdata. De Open State Foundation
-                  is samen
-                </p>
-                <p>
-                  met VNG Realisatie het project Open Raadsinformatie gestart om
-                  data uit gemeenteraden te verzamelen. Voor de provincies is
-                  Open Stateninformatie gestart. Argu heeft als missie om
-                  besluitvorming zo open en toegankelijk mogelijk te maken. Als
-                  technisch ontwikkelaar en beheerder raakte Argu betrokken bij
-                  deze projecten.
+                  l'ontologies permet de faire la recherche des aliments,
+                  explore leurs valeurs nutritives. Chaque aliment peut etre
+                  lies a un plat (repas). Avec cette application, vous pouvez
+                  voir les amis les plus commences dans une region du Cameroun,
+                  voir les reon de repas basee sur les valeurs nutritives des
+                  aliments.
                 </p>
 
                 {stats && (
@@ -349,20 +345,21 @@ export default function Home(props) {
                       {className && (
                         <Badge
                           style={{
+                            backgroundColor: '#00838d',
                             cursor: 'pointer',
-                            marginLeft: '2px',
+                            marginLeft: '10px',
                           }}
-                          style={{ backgroundColor: '#00838d' }}
                           onClick={() => describe(classNameParam)}
                         >
-                          <h4>
+                          <h4 style={{}}>
+                            {' '}
                             {className}: {classeIndividuals.total}
                           </h4>
+                          <FontAwesomeIcon icon='coffee' />
                         </Badge>
                       )}
                       {classeIndividuals.records.map((classeItem, index) => {
                         let labelItem = classeItem.uri.split('#')[1];
-                        console.log(classeItem);
                         return (
                           <Result
                             key={index}
@@ -384,11 +381,29 @@ export default function Home(props) {
                 className='some-custom-class'
                 overlayClassName='some-custom-overlay-class'
                 isOpen={panState.isPaneOpen}
-                title=''
-                subtitle=''
+                title={`${individualItem.label[0]?.object}`}
+                subtitle={` ${
+                  individualItem?.label[1]?.object
+                    ? individualItem?.label[1]?.object
+                    : ''
+                }`}
                 onRequestClose={closeSlide}
               >
-                <div>{renderDescription(individualItem)}</div>
+                <div>
+                  {exploreMutation.isLoading ? (
+                    <Spinner size='sm' color='secondary' />
+                  ) : (
+                    <div>
+                      {exploreMutation.isError ? (
+                        <div>An error occurred: {mutation.error.message}</div>
+                      ) : null}
+                    </div>
+                  )}
+
+                  {exploreMutation.isSuccess
+                    ? renderDescription(individualItem)
+                    : null}
+                </div>
               </SlidingPane>
             )}
             <SlidingPane
@@ -453,7 +468,6 @@ export default function Home(props) {
           </Col>
         </Container>
       </Row>
-      {console.log(stats)}
     </>
   );
 }

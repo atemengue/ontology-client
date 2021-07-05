@@ -1,14 +1,15 @@
 /** @format */
 
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import {
-  Button,
+  Card,
+  CardBody,
+  CardImg,
+  CardSubtitle,
+  CardTitle,
+  Col,
   Container,
-  Form,
-  FormFeedback,
-  FormGroup,
-  Input,
-  Label,
+  Row,
 } from 'reactstrap';
 export default function Enrichir(props) {
   let { slug } = useParams();
@@ -17,61 +18,83 @@ export default function Enrichir(props) {
 
   return (
     <>
-      <Container className='mt-2'>
-        <Form>
-          <div>
-            <h3>Ajouter un aliment</h3>
-            <FormGroup>
-              <Label for='exampleEmail'>Nom aliment</Label>
-              <Input />
-              <FormFeedback>You will not be able to see this</FormFeedback>
-              {/* <FormText>Example help text that remains unchanged.</FormText> */}
-            </FormGroup>
-            <FormGroup>
-              <Input type='select'>
-                <option>Selectionner les substances Organiques</option>
-                <option>Vitamine A</option>
-                <option>Vitamine C</option>
-                <option>Vitamine D</option>
-                <option>Vitamine E</option>
-              </Input>
-            </FormGroup>
-            <Button color='primary' size='sm'>
-              Valider
-            </Button>{' '}
-          </div>
-        </Form>
+      <Container>
+        <Row className='mt-5'>
+          <Col xs='12' sm='6' md='3'>
+            <Link className='link-card mb-5' to='/enrichir/aliment'>
+              <Card className='widgetRevision'>
+                <CardImg
+                  top
+                  width='100%'
+                  src='/icons/healthy_food.png'
+                  alt='Card image cap'
+                />
+                <CardBody>
+                  <CardTitle tag='h5'>Aliment</CardTitle>
+                  <CardSubtitle tag='h6' className='mb-2 text-muted'>
+                    Ajouter un aliment dans le store
+                  </CardSubtitle>
+                </CardBody>
+              </Card>
+            </Link>
+          </Col>
+          <Col xs='12' sm='6' md='3'>
+            <Link className='link-card mb-5' to='/enrichir/plat'>
+              <Card className='widgetRevision'>
+                <CardImg
+                  top
+                  width='100%'
+                  src='/icons/016-dinner.png'
+                  alt='Card image cap'
+                />
+                <CardBody>
+                  <CardTitle tag='h5'>Plat (Mets)</CardTitle>
+                  <CardSubtitle tag='h6' className='mb-2 text-muted'>
+                    Ajouter un Plat dans le Store
+                  </CardSubtitle>
+                </CardBody>
+              </Card>
+            </Link>
+          </Col>
+          <Col xs='12' sm='6' md='3'>
+            <Link className='link-card mb-5' to='#'>
+              <Card className='widgetRevision'>
+                <CardImg
+                  top
+                  width='100%'
+                  src='/icons/032-chef.png'
+                  alt='Card image cap'
+                />
+                <CardBody>
+                  <CardTitle tag='h5'>Maladie</CardTitle>
+                  <CardSubtitle tag='h6' className='mb-2 text-muted'>
+                    Ajouter des Maladies dans le store
+                  </CardSubtitle>
+                </CardBody>
+              </Card>
+            </Link>
+          </Col>
+          <Col xs='12' sm='6' md='3'>
+            <Link className='link-card mb-5' to='#'>
+              <Card className='widgetRevision'>
+                <CardImg
+                  top
+                  width='100%'
+                  src='/icons/001-alcohol.png'
+                  alt='Card image cap'
+                />
+                <CardBody>
+                  <CardTitle tag='h5'>Regime</CardTitle>
+                  <CardSubtitle tag='h6' className='mb-2 text-muted'>
+                    Ajouter des regimes dans le store
+                  </CardSubtitle>
+                </CardBody>
+              </Card>
+            </Link>
+          </Col>
+        </Row>
       </Container>
-      <hr />
-      <Container className='mt-2'>
-        <Form>
-          <div>
-            <h3>Creer un Plat</h3>
-            <FormGroup>
-              <Label for='exampleEmail'>Nom du repas</Label>
-              <Input />
-              <FormFeedback>You will not be able to see this</FormFeedback>
-              {/* <FormText>Example help text that remains unchanged.</FormText> */}
-            </FormGroup>
-            <FormGroup>
-              <Input type='select'>
-                <option>Selectionner les aliments</option>
-                <option>Gombo</option>
-                <option>Mais</option>
-                <optin>Viande de Boeuf E</optin>
-                <option>Tomate</option>
-                <option>Haricot</option>
-              </Input>
-            </FormGroup>
-            <Button color='primary' size='sm'>
-              Valider
-            </Button>{' '}
-            <Button color='primary' size='sm'>
-              Ajouter des aliments
-            </Button>{' '}
-          </div>
-        </Form>
-      </Container>
+      );
     </>
   );
 }

@@ -21,8 +21,8 @@
 
 .SearchSpan {
   width: 15%;
-  border: 1px solid #1c76d2;
-  background: #1c76d2;
+  border: 1px solid #00838d;
+  background: #00838d;
   padding-top: 4px;
   text-align: center;
   color: #fff;
@@ -31,8 +31,8 @@
 }
 
 .SearchInput {
-  width: 85%;
-  border: 3px solid #1c76d2;
+  width: 90%;
+  border: 3px solid #00838d;
   border-left: none;
   padding: 5px;
   border-radius: 0 5px 5px 0;
@@ -50,4 +50,31 @@
 
 hr {
   width: 70%;
+}
+
+.widgetRevision {
+  transition: all 0.25s linear;
+  box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.4);
+  height: 100;
+  width: 500;
+}
+
+.widgetRevision:hover {
+  cursor: pointer;
+  box-shadow: -1px 10px 29px 0px rgba(0, 0, 0, 0.8);
+}
+
+a.link-card {
+  text-decoration: none;
+}
+.link-card h5 {
+  text-decoration: none;
+  color: rgba(0, 0, 21, 0.5);
+  font-size: larger;
+  transition: all 0.25s linear;
+}
+
+.link-card:hover h5 {
+  text-decoration: none;
+  color: #3a9679;
 }

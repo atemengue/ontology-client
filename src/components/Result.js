@@ -12,15 +12,6 @@ const Result = ({ title, classe, description, onClick }) => {
           <div class='go-arrow'>→</div>
         </div>
       </div>
-      {/* <Card onClick={onClick}>
-        <CardBody>
-          <CardTitle tag='h5'>
-            {title}
-            <Badge className='ml-3'>{classe}</Badge>
-          </CardTitle>
-          <CardText>{description}</CardText>
-        </CardBody>
-      </Card> */}
     </div>
   );
 };

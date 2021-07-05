@@ -16,7 +16,7 @@ import {
   Input,
   Label,
   Row,
-  Spinner,
+  Spinner
 } from 'reactstrap';
 import { addAlimentToStore, getClasse } from '../helpers/classeHelper';
 
@@ -143,24 +143,26 @@ export default function AddAliment(props) {
                     classNamePrefix='select'
                   />
                 </FormGroup>
-                {addAliment.isLoading ? (
-                  <Spinner />
-                ) : (
-                  <Button
-                    onClick={() =>
-                      addAliment.mutate({
-                        name,
-                        labelEN,
-                        labelFR,
-                        comment,
-                        substances,
-                      })
-                    }
-                    color='primary'
-                  >
-                    Ajouter Aliment
-                  </Button>
-                )}
+            {
+              addAliment.isLoading ? (
+                <Spinner />
+              ) : (
+                <Button
+                onClick={() =>
+                  addAliment.mutate({
+                    name,
+                    labelEN,
+                    labelFR,
+                    comment,
+                    substances,
+                  })
+                }
+                color='primary'
+              >
+                Ajouter Aliment
+              </Button>
+              )
+            }
               </div>
             </Form>
           </Col>

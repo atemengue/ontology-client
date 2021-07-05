@@ -75,7 +75,7 @@ export default function NavComponent() {
                   exact
                   activeStyle={activeStyle}
                   className='nav-link'
-                  to='/validation'
+                  to='/proposition'
                 >
                   Proposition
                 </NavLink>

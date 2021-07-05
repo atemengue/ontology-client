@@ -12,9 +12,10 @@ import Connexion from './components/Connexion';
 import Enrichir from './components/Enrichir';
 import Home from './components/Home';
 import NavComponent from './components/NavComponent';
+import Proposition from './components/Proposition';
+import PropositionRepas from './components/PropositionRepas';
 import Register from './components/Register';
 import Search from './components/Search';
-import Validation from './components/Validation';
 
 const App = (props) => {
   const queryClient = new QueryClient(); // react query client
@@ -29,7 +30,9 @@ const App = (props) => {
         <Route path='/enrichir/aliment' component={AddAliment} />
         <Route path='/enrichir/plat' component={AddPlat} />
         <Route path='/enrichir' component={Enrichir} />
-        <Route path='/validation' component={Validation} />
+        <Route path='/proposition/repas' component={PropositionRepas} />
+        <Route path='/proposition/aliments' component={Proposition} />
+        <Route path='/proposition' component={Proposition} />
         <Route path='/recherche' component={Search} />
         <Route path='/classes/:classNameParam' component={Home} />
         <Route path='/classes/:classNameParam/:individual' component={Home} />

@@ -1,6 +1,6 @@
 /** @format */
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useMutation } from 'react-query';
 import { useHistory, useParams } from 'react-router-dom';
 import Select from 'react-select';
@@ -18,7 +18,7 @@ import {
   Spinner,
   Table,
 } from 'reactstrap';
-import { addPlatToStore, getAliments } from '../helpers/classeHelper';
+import { metRecommendation } from '../helpers/classeHelper';
 
 const regionsCameroun = [
   {
@@ -34,8 +34,32 @@ const regionsCameroun = [
     value: 'CENTRE',
   },
   {
-    label: 'ADAMAOUO',
+    label: 'ADAMAOUA',
     value: 'ADAMAOUA',
+  },
+  {
+    label: 'SUD OUEST',
+    value: 'SUD_OUEST',
+  },
+  {
+    label: 'NORD OUEST',
+    value: 'NORD_OUEST',
+  },
+  {
+    label: 'EST',
+    value: 'EST',
+  },
+  {
+    label: 'OUEST',
+    value: 'OUEST',
+  },
+  {
+    label: 'SUD',
+    value: 'SUD',
+  },
+  {
+    label: 'LITTORAL',
+    value: 'LITORAL',
   },
 ];
 
@@ -44,67 +68,34 @@ export default function PropositionRepas(props) {
 
   const history = useHistory();
 
-  const [name, setName] = useState('');
-  const [labelFR, setLabelFR] = useState('');
-  const [labelEN, setLabelEN] = useState('');
-  const [alimentPlats, setAlimentPlats] = useState([]);
-  const [comment, setComment] = useState('');
-  const [regions, setRegions] = useState([]);
-
   const [classeIndividuals, setClasseIndividuals] = useState({
     total: null,
     records: [],
   });
 
-  useEffect(() => {
-    mutation.mutate();
-  }, []);
+  const [regions, setRegions] = useState([]);
 
-  const mutation = useMutation(() => getAliments(), {
+  const mutation = useMutation((data) => metRecommendation(data), {
     onSuccess: (response) => {
+      toast.success('Repas Recuperes');
       setClasseIndividuals({
-        ...classeIndividuals,
         total: response?.data?.total,
         records: response?.data?.records,
       });
     },
-  });
-
-  const addPlat = useMutation((data) => addPlatToStore(data), {
-    onSuccess: (response) => {
-      toast.success('Plat Ajoute');
-      clearInput();
+    onError: (error) => {
+      toast.error('Erreur: Veuillez patienter');
     },
   });
 
-  const clearInput = () => {
-    setName('');
-    setLabelFR('');
-    setLabelEN('');
-    setAlimentPlats();
-    setRegions();
-    setComment('');
-  };
-
-  const onChangeAliment = (data) => {
-    if (data) {
-      data.map((item) => {
-        let splitName = item.entity.split('#')[1];
-        let plat = `food:${splitName}`;
-        // controler si pla presente daans le tableau
-        setAlimentPlats([...alimentPlats, plat]);
-      });
-    } else {
-      setAlimentPlats([]);
-    }
-  };
-
   const onChangeRegion = (data) => {
-    if (data) {
+    let values = [];
+    if (data.length !== 0) {
       data.map((item) => {
         let region = `food:${item.value}`;
+        values = [...values, region];
         // controler si substance presente daans le tableau
-        setRegions([...regions, region]);
+        setRegions(values);
       });
     } else {
       setRegions([]);
@@ -132,6 +123,7 @@ export default function PropositionRepas(props) {
                 <FormGroup>
                   <Label for='comment'>Region du plat</Label>
                   <Select
+                    isClearable={true}
                     onChange={onChangeRegion}
                     isMulti
                     name='regions'
@@ -142,18 +134,13 @@ export default function PropositionRepas(props) {
                   <FormFeedback></FormFeedback>
                 </FormGroup>
 
-                {addPlat.isLoading ? (
+                {mutation.isLoading ? (
                   <Spinner />
                 ) : (
                   <Button
                     onClick={() =>
-                      addPlat.mutate({
-                        name,
-                        labelEN,
-                        labelFR,
-                        comment,
+                      mutation.mutate({
                         regions,
-                        alimentPlats,
                       })
                     }
                     color='primary'
@@ -165,22 +152,40 @@ export default function PropositionRepas(props) {
             </Form>
           </Col>
           <Col md='6'>
-            <Table bordered>
-              <thead>
-                <tr>
-                  <th>#</th>
-                  <th>Noms du Plat (Mets)</th>
-                  <th>Region d'Origine</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <th scope='row'>1</th>
-                  <td>CousCous Gombo</td>
-                  <td>EST</td>
-                </tr>
-              </tbody>
-            </Table>
+            {mutation.isLoading ? (
+              <Spinner size='sm' color='secondary' />
+            ) : (
+              <div>
+                {mutation.isError ? (
+                  <div>An error occurred: {mutation.error.message}</div>
+                ) : null}
+                {mutation.isSuccess ? (
+                  <Table bordered>
+                    <thead>
+                      <tr>
+                        <th>#</th>
+                        <th>Noms du Plat (Mets)</th>
+                        <th>-------------------</th>
+                        <th>Region d'Origine</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {classeIndividuals.records.map((plat, index) => {
+                        let labelItem = plat.uriRepas.split('#')[1];
+                        return (
+                          <tr key={index}>
+                            <th scope='row'>{index}</th>
+                            <td>{plat.labelRepas}</td>
+                            <td>{plat.labelPredicat}</td>
+                            <td>{plat.labelRegion}</td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </Table>
+                ) : null}
+              </div>
+            )}
           </Col>
         </Row>
       </Container>

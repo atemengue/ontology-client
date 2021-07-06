@@ -56,3 +56,9 @@ export function addPlatToStore(data) {
   const response = axios.post(`http://localhost:9393/api/plats`, data);
   return response;
 }
+
+export function metRecommendation(data) {
+  console.log(data);
+  const response = axios.post(`http://localhost:9393/api/plats/chef`, data);
+  return response;
+}

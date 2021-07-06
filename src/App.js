@@ -13,6 +13,7 @@ import Enrichir from './components/Enrichir';
 import Home from './components/Home';
 import NavComponent from './components/NavComponent';
 import Proposition from './components/Proposition';
+import PropositionAliments from './components/PropositionAliments';
 import PropositionRepas from './components/PropositionRepas';
 import Register from './components/Register';
 import Search from './components/Search';
@@ -31,7 +32,7 @@ const App = (props) => {
         <Route path='/enrichir/plat' component={AddPlat} />
         <Route path='/enrichir' component={Enrichir} />
         <Route path='/proposition/repas' component={PropositionRepas} />
-        <Route path='/proposition/aliments' component={Proposition} />
+        <Route path='/proposition/aliments' component={PropositionAliments} />
         <Route path='/proposition' component={Proposition} />
         <Route path='/recherche' component={Search} />
         <Route path='/classes/:classNameParam' component={Home} />

@@ -337,7 +337,7 @@ export default function Home(props) {
               ) : (
                 <div>
                   {mutation.isError ? (
-                    <div>An error occurred: {mutation.error.message}</div>
+                    <div>An error occurred: error</div>
                   ) : null}
 
                   {mutation.isSuccess && classNameParam !== undefined ? (
@@ -395,7 +395,7 @@ export default function Home(props) {
                   ) : (
                     <div>
                       {exploreMutation.isError ? (
-                        <div>An error occurred: {mutation.error.message}</div>
+                        <div>An error occurred: </div>
                       ) : null}
                     </div>
                   )}
@@ -422,7 +422,7 @@ export default function Home(props) {
                 ) : (
                   <div>
                     {describeClasseMutation.isError ? (
-                      <div>An error occurred: {mutation.error.message}</div>
+                      <div>An error occurred: </div>
                     ) : null}
 
                     {describeClasseMutation.isSuccess ? (

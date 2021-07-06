@@ -124,13 +124,14 @@ export default function Search() {
 
   const renderCard = (items) => {
     return items.map((item, index) => {
+      console.log(item);
       let labelItem = item.subject[0].split('#')[1];
       return (
         <Result
           key={index}
           title={item.object[0]}
           onClick={() => explore(labelItem)}
-          description={item.uri}
+          description={item?.comment[0]}
         />
       );
     });

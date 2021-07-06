@@ -38,8 +38,6 @@ export function getStatistique() {
 }
 
 export function login(data) {
-  console.log(data);
-
   const response = axios.post(`http://localhost:9393/api/login`, {
     pseudo: data.pseudo,
     password: data.password,
@@ -58,7 +56,16 @@ export function addPlatToStore(data) {
 }
 
 export function metRecommendation(data) {
-  console.log(data);
   const response = axios.post(`http://localhost:9393/api/plats/chef`, data);
+  return response;
+}
+
+export function getMaladies(etat) {
+  const response = axios.get(`http://localhost:9393/api/maladies/${etat}`);
+  return response;
+}
+
+export function maladieRecommendation(data) {
+  const response = axios.post(`http://localhost:9393/api/maladies`, data);
   return response;
 }

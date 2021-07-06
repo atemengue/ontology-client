@@ -156,9 +156,7 @@ export default function PropositionRepas(props) {
               <Spinner size='sm' color='secondary' />
             ) : (
               <div>
-                {mutation.isError ? (
-                  <div>An error occurred: {mutation.error.message}</div>
-                ) : null}
+                {mutation.isError ? <div>An error occurred: error</div> : null}
                 {mutation.isSuccess ? (
                   <Table bordered>
                     <thead>
